@@ -10,14 +10,24 @@
 \typeout{ GAIYO: 総合情報学部卒業研究概要スタイルファイル 2013年度版}
 \typeout{ GAIYO: 専門演習レポート  対応}
 \typeout{ GAIYO: 大学院総合情報研究科博士／修士論文要旨  対応}
+\typeout{ GAIYO: プレゼミ資料  対応(2017/02/25)}
+\typeout{ GAIYO: 講義レポート  対応(2017/04/04)}
 \typeout{ GAIYO: --------------------------------------------------}
+%ここでusepackageの[]内に書かれる変数の宣言．
+%対応する文字ならば，後に続く中括弧のパラメータが入る．
 \DeclareOption{doctor}{\Th@graduatetrue\Th@doctortrue}
 \DeclareOption{master}{\Th@graduatetrue\Th@doctorfalse}
 \DeclareOption{senior}{\Th@graduatefalse\Th@seniortrue}
 \DeclareOption{junior}{\Th@graduatefalse\Th@seniorfalse}
+\DeclareOption{presemi}{\Th@graduatefalse\Th@presemitrue}
+\DeclareOption{report}{\Th@graduatefalse\Th@reporttrue}
+%if文の宣言．Th@ほげの部分は，上記のパラメータに対応する．
 \newif\ifTh@graduate%
 \newif\ifTh@doctor%
 \newif\ifTh@senior%
+\newif\ifTh@presemi%
+\newif\ifTh@report%
+%seniorだけ，usepackageの[]内の記述がいらないってことだと思う．
 \ExecuteOptions{senior}%
 \ProcessOptions%
 
@@ -50,15 +60,22 @@
 \setlength\Cvs{\baselineskip}
 \setlength\Chs{\wd0}
 
-% タイトル用変数
+% タイトル用変数%講義名用
+\def\lecture#1{\gdef\@lecture{#1}}
+%タイトル
+\def\title#1{\gdef\@title{#1}}
+%学籍と氏名
 \def\id#1{\gdef\@id{#1}}
+%指導教員とその名前
 \def\teacher#1{\gdef\@teacher{#1}}
 %\def\hdtype#1{\gdef\hd@type{#1}}
 
 % ヘッダー
+%YearとMinusの宣言
 \newcount\Year \Year\year\relax
 \newcount\Minus \Minus1\relax
 %
+%それぞれのパラメータの値で分岐する．
 \ifTh@graduate%
   \ifTh@doctor%
     \def\hdtype{博士論文}
@@ -91,18 +108,58 @@
     \ifnum \month < 4 \advance\Year-\Minus\fi
     \gdef\hd@type{\number\Year~年度\hskip1zw専門演習}
   \fi
+  \ifTh@presemi%
+    \typeout{ GAIYO: ★ヘッダをプレゼミ用に設定します。★}
+    \gdef\hd@type{\number\Year~年度\hskip1zwプレゼミ資料}
+  \fi
+  \ifTh@report%
+    \typeout{ GAIYO: ★ヘッダを講義レポート用に設定します。★}
+    \ifnum \month < 4 \advance\Year-\Minus\fi
+    \gdef\hd@type{\number\Year~年度\hskip1zw}
+  \fi
 \fi
 
-\def\ps@headings{\let\@mkboth\@gobbletwo
-        \gdef\@oddhead{%
-         \fontsize{9pt}{9pt}\selectfont%
-         \rlap{\@id\hskip1zw\@author} \hfil%
-%        \hd@type \hfil \llap{\thepage{}/\pageref{lastpage}}
-        \hd@type \hfil \thepage{}/\pageref{lastpage}%
-        \gdef\@evenhead{\@oddhead}%
-        \gdef\@oddfoot{\@empty}%
-        \gdef\@evenfoot{\@oddfoot}}}%
-\pagestyle{headings}
+%プレゼミ資料用ヘッダ
+\ifTh@presemi%
+  \def\ps@headings{\let\@mkboth\@gobbletwo
+          \gdef\@oddhead{%
+           \fontsize{9pt}{9pt}\selectfont%
+           \rlap{\@title} \hfil%
+  %        \hd@type \hfil \llap{\thepage{}/\pageref{lastpage}}
+          \hd@type \hfil \thepage{}/\pageref{lastpage}%
+          \gdef\@evenhead{\@oddhead}%
+          \gdef\@oddfoot{\@empty}%
+          \gdef\@evenfoot{\@oddfoot}}}%
+  \pagestyle{headings}
+\else
+  %講義レポート用ヘッダ
+  \ifTh@report%
+    \def\ps@headings{\let\@mkboth\@gobbletwo
+            \gdef\@oddhead{%
+             \fontsize{9pt}{9pt}\selectfont%
+             \rlap{\@id\hskip1zw\@author} \hfil%
+            %ヘッダを講義名にしたいときはこっちの%を外す．
+            %texファイルのタイトル周辺に\lecture{講義名}を入れること．
+            \hd@type \@lecture \hfil \thepage{}/\pageref{lastpage}%
+            %ヘッダをタイトルと同じにしたいならこっちの%を外す．
+            %\@title \hfil \thepage{}/\pageref{lastpage}%
+            \gdef\@evenhead{\@oddhead}%
+            \gdef\@oddfoot{\@empty}%
+            \gdef\@evenfoot{\@oddfoot}}}%
+    \pagestyle{headings}
+  \else
+    \def\ps@headings{\let\@mkboth\@gobbletwo
+            \gdef\@oddhead{%
+             \fontsize{9pt}{9pt}\selectfont%
+             \rlap{\@id\hskip1zw\@author} \hfil%
+%            \hd@type \hfil \llap{\thepage{}/\pageref{lastpage}}
+            \hd@type \hfil \thepage{}/\pageref{lastpage}%
+            \gdef\@evenhead{\@oddhead}%
+            \gdef\@oddfoot{\@empty}%
+            \gdef\@evenfoot{\@oddfoot}}}%
+    \pagestyle{headings}
+  \fi
+\fi
 
 % 小細工
 % これによって最終ページを参照できるようになります．
@@ -110,19 +167,33 @@
 \def\enddocument{\vskip-5mm{}\label{lastpage}\org@enddocument}
 
 % タイトル
-\def\@maketitle{\begin{center}%
-  \vspace{\baselineskip}%
-  {\fontsize{12pt}{0.6565cm}\selectfont \bfseries%
-    \@title \par%
+%プレゼミ資料用．名前欄と指導教員欄が消える．
+\ifTh@presemi%
+  \def\@maketitle{\begin{center}%
     \vspace{\baselineskip}%
-    \begin{tabular}[t]{p{5cm}p{5cm}}%
-      \multicolumn{1}{r}{\@id}     & \@author \\%
-      \multicolumn{1}{r}{指導教員} & \@teacher\\%
-      \mbox{}& \\%
-    \end{tabular}%
-  }%
-\end{center}%
-}
+    {\fontsize{12pt}{0.6565cm}\selectfont \bfseries%
+      \@title \par%
+      \vspace{\baselineskip}%
+      
+    }%
+  \end{center}%
+  }
+\else
+  \def\@maketitle{\begin{center}%
+    \vspace{\baselineskip}%
+    {\fontsize{12pt}{0.6565cm}\selectfont \bfseries%
+      \@title \par%
+      \vspace{\baselineskip}%
+      \begin{tabular}[t]{p{5cm}p{5cm}}%
+        \multicolumn{1}{r}{\@id}     & \@author \\%
+        \multicolumn{1}{r}{指導教員} & \@teacher\\%
+        \mbox{}& \\%
+      \end{tabular}%
+    }%
+  \end{center}%
+  }
+\fi
+
 \def\maketitle{%
 \let\footnotesize\small
 \let\footnoterule\relax
@@ -136,7 +207,7 @@
 \fi
 \setcounter{footnote}{0}%
 \global\let\maketitle\relax
-\global\let\@title\@empty
+%\global\let\@title\@empty % ヘッダにタイトルを使いたいときはコメントアウト
 %\global\let\@author\@empty % used in header
 \global\let\@teacher\@empty
 %\global\let\@id\@empty % used in header
