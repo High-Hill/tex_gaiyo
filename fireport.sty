@@ -15,18 +15,23 @@
 \typeout{ GAIYO: --------------------------------------------------}
 %ここでusepackageの[]内に書かれる変数の宣言．
 %対応する文字ならば，後に続く中括弧のパラメータが入る．
-\DeclareOption{doctor}{\Th@graduatetrue\Th@doctortrue}
-\DeclareOption{master}{\Th@graduatetrue\Th@doctorfalse}
-\DeclareOption{senior}{\Th@graduatefalse\Th@seniortrue}
-\DeclareOption{junior}{\Th@graduatefalse\Th@seniorfalse}
-\DeclareOption{presemi}{\Th@graduatefalse\Th@presemitrue}
-\DeclareOption{report}{\Th@graduatefalse\Th@reporttrue}
+\DeclareOption{doctor}{\Th@thesistrue\Th@graduatetrue\Th@doctortrue}
+\DeclareOption{master}{\Th@thesistrue\Th@graduatetrue\Th@doctorfalse}
+\DeclareOption{senior}{\Th@thesistrue\Th@graduatefalse\Th@seniortrue}
+\DeclareOption{junior}{\Th@thesistrue\Th@graduatefalse\Th@seniorfalse}
+\DeclareOption{manual}{\Th@thesisfalse\Th@manualtrue}
+\DeclareOption{report}{\Th@thesisfalse\Th@reporttrue}
+\DeclareOption{presemi}{\Th@presemitrue}
+\DeclareOption{nosupervisor}{\Th@nosupervisortrue}
 %if文の宣言．Th@ほげの部分は，上記のパラメータに対応する．
+\newif\ifTh@thesis%
 \newif\ifTh@graduate%
 \newif\ifTh@doctor%
 \newif\ifTh@senior%
-\newif\ifTh@presemi%
+\newif\ifTh@manual%
 \newif\ifTh@report%
+\newif\ifTh@presemi
+\newif\ifTh@nosupervisor%
 %seniorだけ，usepackageの[]内の記述がいらないってことだと思う．
 \ExecuteOptions{senior}%
 \ProcessOptions%
@@ -74,63 +79,89 @@
 %YearとMinusの宣言
 \newcount\Year \Year\year\relax
 \newcount\Minus \Minus1\relax
+%レポート用のヘッダをつくる際に，右上に表示される年月日を西暦にしたいときはこれをつける．
+\西暦
 %
 %それぞれのパラメータの値で分岐する．
-\ifTh@graduate%
-  \ifTh@doctor%
-    \def\hdtype{博士論文}
-  \else
-    \def\hdtype{修士論文}
-  \fi
-  \typeout{ GAIYO: ★ヘッダを\hdtype 要旨用に設定します。★}
-  \newcount\Month \Month\month\relax%
-  \advance\Year-1988%
-  \ifnum \month < 10%
-    \ifnum \month > 3%
-      \gdef\hd@type{平成\number\Year~年9月期\hskip1zw\hdtype}
+\ifTh@thesis%
+  \ifTh@graduate%
+    \ifTh@doctor%
+      \def\hdtype{博士論文}
+    \else
+      \def\hdtype{修士論文}
+    \fi
+    \typeout{ GAIYO: ★ヘッダを\hdtype 要旨用に設定します。★}
+    \newcount\Month \Month\month\relax%
+    \advance\Year-1988%
+    \ifnum \month < 10%
+      \ifnum \month > 3%
+        \gdef\hd@type{平成\number\Year~年9月期\hskip1zw\hdtype}
+      \fi
+    \else
+      \ifnum \month < 13%
+        \advance\Year+1%
+        \gdef\hd@type{平成\number\Year~年3月期\hskip1zw\hdtype}
+      \fi
+    \fi
+    \ifnum \month < 4%
+        \gdef\hd@type{平成\number\Year~年3月期\hskip1zw\hdtype}
     \fi
   \else
-    \ifnum \month < 13%
-      \advance\Year+1%
-      \gdef\hd@type{平成\number\Year~年3月期\hskip1zw\hdtype}
+    \ifTh@senior%
+      \typeout{ GAIYO: ★ヘッダを卒業研究用に設定します。★}
+      \ifnum \month < 4 \advance\Year-\Minus\fi
+      \gdef\hd@type{\number\Year~年度\hskip1zw卒業研究}
+    \else
+      \typeout{ GAIYO: ★ヘッダを専門演習用に設定します。★}
+      \ifnum \month < 4 \advance\Year-\Minus\fi
+      \gdef\hd@type{\number\Year~年度\hskip1zw専門演習}
     \fi
-  \fi
-  \ifnum \month < 4%
-      \gdef\hd@type{平成\number\Year~年3月期\hskip1zw\hdtype}
   \fi
 \else
-  \ifTh@senior%
-    \typeout{ GAIYO: ★ヘッダを卒業研究用に設定します。★}
-    \ifnum \month < 4 \advance\Year-\Minus\fi
-    \gdef\hd@type{\number\Year~年度\hskip1zw卒業研究}
-  \else
-    \typeout{ GAIYO: ★ヘッダを専門演習用に設定します。★}
-    \ifnum \month < 4 \advance\Year-\Minus\fi
-    \gdef\hd@type{\number\Year~年度\hskip1zw専門演習}
-  \fi
-  \ifTh@presemi%
-    \typeout{ GAIYO: ★ヘッダをプレゼミ用に設定します。★}
-    \gdef\hd@type{\number\Year~年度\hskip1zwプレゼミ資料}
+  \ifTh@manual%
+    \typeout{ GAIYO: ★ヘッダをマニュアル用に設定します。★}
+    \ifTh@presemi
+        \typeout{ GAIYO: プレゼミモード}
+        \gdef\hd@type{\number\Year~年度\hskip1zwプレゼミ資料}
+    \else
+        \gdef\hd@type{\hskip1zw}
+    \fi
   \fi
   \ifTh@report%
     \typeout{ GAIYO: ★ヘッダを講義レポート用に設定します。★}
+    \ifTh@nosupervisor%
+        \typeout{ GAIYO: 担当教員なしモード}
+    \fi
     \ifnum \month < 4 \advance\Year-\Minus\fi
     \gdef\hd@type{\number\Year~年度\hskip1zw}
   \fi
 \fi
 
-%プレゼミ資料用ヘッダ
-\ifTh@presemi%
-  \def\ps@headings{\let\@mkboth\@gobbletwo
-          \gdef\@oddhead{%
-           \fontsize{9pt}{9pt}\selectfont%
-           \rlap{\@title} \hfil%
-  %        \hd@type \hfil \llap{\thepage{}/\pageref{lastpage}}
-          \hd@type \hfil \thepage{}/\pageref{lastpage}%
-          \gdef\@evenhead{\@oddhead}%
-          \gdef\@oddfoot{\@empty}%
-          \gdef\@evenfoot{\@oddfoot}}}%
-  \pagestyle{headings}
+%マニュアル用ヘッダ
+\ifTh@manual%
+  \ifTh@presemi
+      \def\ps@headings{\let\@mkboth\@gobbletwo
+              \gdef\@oddhead{%
+              \fontsize{9pt}{9pt}\selectfont%
+              \rlap{\@title} \hfil%
+  %          \hd@type \hfil \llap{\thepage{}/\pageref{lastpage}}
+              \hd@type \hfil \thepage{}/\pageref{lastpage}%
+              \gdef\@evenhead{\@oddhead}%
+              \gdef\@oddfoot{\@empty}%
+              \gdef\@evenfoot{\@oddfoot}}}%
+      \pagestyle{headings}
+  \else
+     \def\ps@headings{\let\@mkboth\@gobbletwo
+              \gdef\@oddhead{%
+              \fontsize{9pt}{9pt}\selectfont%
+              \hfil%
+  %          \hd@type \hfil \llap{\thepage{}/\pageref{lastpage}}
+              \@title \hfil \thepage{}/\pageref{lastpage}%
+              \gdef\@evenhead{\@oddhead}%
+              \gdef\@oddfoot{\@empty}%
+              \gdef\@evenfoot{\@oddfoot}}}%
+      \pagestyle{headings}
+   \fi
 \else
   %講義レポート用ヘッダ
   \ifTh@report%
@@ -140,11 +171,12 @@
              \rlap{\@id\hskip1zw\@author} \hfil%
             %ヘッダを講義名にしたいときはこっちの%を外す．
             %texファイルのタイトル周辺に\lecture{講義名}を入れること．
-            \hd@type \@lecture \hfil \thepage{}/\pageref{lastpage}%
+            \hd@type \@lecture \hfil \llap{\today{}}%
             %ヘッダをタイトルと同じにしたいならこっちの%を外す．
             %\@title \hfil \thepage{}/\pageref{lastpage}%
             \gdef\@evenhead{\@oddhead}%
-            \gdef\@oddfoot{\@empty}%
+            %フッター右に清書時刻を印字
+            \gdef\@oddfoot{\hfil\thepage{}/\pageref{lastpage} \hfil \llap{\number\hour{}時\number\minute{}分}}
             \gdef\@evenfoot{\@oddfoot}}}%
     \pagestyle{headings}
   \else
@@ -167,11 +199,11 @@
 \def\enddocument{\vskip-5mm{}\label{lastpage}\org@enddocument}
 
 % タイトル
-%プレゼミ資料用．名前欄と指導教員欄が消える．
-\ifTh@presemi%
+%マニュアル，プレゼミ資料用．名前欄と指導教員欄が消える．タイトルが大きくなる．
+\ifTh@manual%
   \def\@maketitle{\begin{center}%
     \vspace{\baselineskip}%
-    {\fontsize{12pt}{0.6565cm}\selectfont \bfseries%
+    {\fontsize{16pt}{0.6565cm}\selectfont \bfseries
       \@title \par%
       \vspace{\baselineskip}%
       
@@ -186,7 +218,11 @@
       \vspace{\baselineskip}%
       \begin{tabular}[t]{p{5cm}p{5cm}}%
         \multicolumn{1}{r}{\@id}     & \@author \\%
-        \multicolumn{1}{r}{指導教員} & \@teacher\\%
+        %nosupervisor指定があると，指導教員欄が消える．
+        \ifTh@nosupervisor
+        \else
+            \multicolumn{1}{r}{指導教員} & \@teacher\\%
+        \fi
         \mbox{}& \\%
       \end{tabular}%
     }%
