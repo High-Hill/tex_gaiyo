@@ -9,8 +9,8 @@ gaiyo.styに色々書き加えています．
 今までgaiyo.styの設定を書いていた部分を，以下に変更してご利用ください．
 
 ```
-%\usepackage[doctor]{fireport} %博士課程の場合
-%\usepackage[master]{fireport} %修士課程の場合
+%\usepackage[doctor]{fireport} %博士後期課程の場合
+%\usepackage[master]{fireport} %博士前期課程の場合
 \usepackage{fireport} %4年次生の場合
 %\usepackage[junior]{fireport} %3年次生の場合
 %\usepackage[manual,presemi]{fireport} %マニュアル，プレゼミ資料の場合
@@ -25,8 +25,8 @@ gaiyo.styに色々書き加えています．
 例）  
 - 3年次生のゼミレポートの場合
 ```
-%\usepackage[doctor]{fireport} %博士課程の場合
-%\usepackage[master]{fireport} %修士課程の場合
+%\usepackage[doctor]{fireport} %博士後期課程の場合
+%\usepackage[master]{fireport} %博士前期課程の場合
 %\usepackage{fireport} %4年次生の場合
 \usepackage[junior]{fireport} %3年次生の場合
 %\usepackage[manual,presemi]{fireport} %マニュアル，プレゼミ資料の場合
@@ -37,8 +37,8 @@ gaiyo.styに色々書き加えています．
 - マニュアルを作成する場合  
 マニュアルの場合は，別途最終ページの右下部に作成した版についての情報を書く欄が必要ですので，マニュアル作成用のTeXファイルをご覧ください．
 ```
-%\usepackage[doctor]{fireport} %博士課程の場合
-%\usepackage[master]{fireport} %修士課程の場合
+%\usepackage[doctor]{fireport} %博士後期課程の場合
+%\usepackage[master]{fireport} %博士前期課程の場合
 %\usepackage{fireport} %4年次生の場合
 %\usepackage[junior]{fireport} %3年次生の場合
 \usepackage[manual]{fireport} %マニュアル，プレゼミ資料の場合
@@ -48,8 +48,8 @@ gaiyo.styに色々書き加えています．
 
 - プレゼミ資料を作成する場合
 ```
-%\usepackage[doctor]{fireport} %博士課程の場合
-%\usepackage[master]{fireport} %修士課程の場合
+%\usepackage[doctor]{fireport} %博士後期課程の場合
+%\usepackage[master]{fireport} %博士前期課程の場合
 %\usepackage{fireport} %4年次生の場合
 %\usepackage[junior]{fireport} %3年次生の場合
 \usepackage[manual,presemi]{fireport} %マニュアル，プレゼミ資料の場合
@@ -59,8 +59,8 @@ gaiyo.styに色々書き加えています．
 
 - システムプログラミング実習の講義レポートを作成する場合
 ```
-%\usepackage[doctor]{fireport} %博士課程の場合
-%\usepackage[master]{fireport} %修士課程の場合
+%\usepackage[doctor]{fireport} %博士後期課程の場合
+%\usepackage[master]{fireport} %博士前期課程の場合
 %\usepackage{fireport} %4年次生の場合
 %\usepackage[junior]{fireport} %3年次生の場合
 %\usepackage[manual,presemi]{fireport} %マニュアル，プレゼミ資料の場合
@@ -70,8 +70,8 @@ gaiyo.styに色々書き加えています．
 
 - システムプログラミング実習の講義レポートを指導教員を書かずに作成する場合
 ```
-%\usepackage[doctor]{fireport} %博士課程の場合
-%\usepackage[master]{fireport} %修士課程の場合
+%\usepackage[doctor]{fireport} %博士後期課程の場合
+%\usepackage[master]{fireport} %博士前期課程の場合
 %\usepackage{fireport} %4年次生の場合
 %\usepackage[junior]{fireport} %3年次生の場合
 %\usepackage[manual,presemi]{fireport} %マニュアル，プレゼミ資料の場合
