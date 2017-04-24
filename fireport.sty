@@ -20,8 +20,8 @@
 \DeclareOption{senior}{\Th@thesistrue\Th@graduatefalse\Th@seniortrue}
 \DeclareOption{junior}{\Th@thesistrue\Th@graduatefalse\Th@seniorfalse}
 \DeclareOption{manual}{\Th@thesisfalse\Th@manualtrue}
+\DeclareOption{presemi}{\Th@thesisfalse\Th@manualtrue\Th@presemitrue}
 \DeclareOption{report}{\Th@thesisfalse\Th@reporttrue}
-\DeclareOption{presemi}{\Th@presemitrue}
 \DeclareOption{nosupervisor}{\Th@nosupervisortrue}
 %if文の宣言．Th@ほげの部分は，上記のパラメータに対応する．
 \newif\ifTh@thesis%
@@ -56,6 +56,7 @@
 \partopsep=0pt
 \listparindent=0zw
 
+%図とキャプションの間の空白
 \setlength\abovecaptionskip{2\p@}
 %\setlength\belowcaptionskip{5\p@}
 

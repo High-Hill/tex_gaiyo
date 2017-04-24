@@ -13,15 +13,15 @@ gaiyo.styに色々書き加えています．
 %\usepackage[master]{fireport} %博士前期課程の場合
 \usepackage{fireport} %4年次生の場合
 %\usepackage[junior]{fireport} %3年次生の場合
-%\usepackage[manual,presemi]{fireport} %マニュアル，プレゼミ資料の場合
+%\usepackage[manual]{fireport} %マニュアルの場合
+%\usepackage[presemi]{fireport} %プレゼミ資料の場合
 %\usepackage[report,nosupervisor]{fireport} %レポートの場合
 \lecture{hoge} %レポートの場合，hogeを講義名に変える
 ```
 
 ## 使い方
 使いたい場合に応じて，上記の `\usepackage`のどれか一つの `%` を外してください．  
-また，マニュアルモードの場合は `[]` 内に一緒に `presemi` を書き込むとプレゼミ資料モードになります．  
-レポートモードの場合は `[]` 内に一緒に `nosupervisor` をつけると指導教員なしに設定できます．  
+また， `[]` 内に一緒に `nosupervisor` をつけると指導教員欄を消す設定ができます．  
 例）  
 - 3年次生のゼミレポートの場合
 ```
@@ -29,7 +29,8 @@ gaiyo.styに色々書き加えています．
 %\usepackage[master]{fireport} %博士前期課程の場合
 %\usepackage{fireport} %4年次生の場合
 \usepackage[junior]{fireport} %3年次生の場合
-%\usepackage[manual,presemi]{fireport} %マニュアル，プレゼミ資料の場合
+%\usepackage[manual]{fireport} %マニュアルの場合
+%\usepackage[presemi]{fireport} %プレゼミ資料の場合
 %\usepackage[report,nosupervisor]{fireport} %レポートの場合
 \lecture{hoge} %レポートの場合，hogeを講義名に変える
 ```
@@ -41,7 +42,8 @@ gaiyo.styに色々書き加えています．
 %\usepackage[master]{fireport} %博士前期課程の場合
 %\usepackage{fireport} %4年次生の場合
 %\usepackage[junior]{fireport} %3年次生の場合
-\usepackage[manual]{fireport} %マニュアル，プレゼミ資料の場合
+\usepackage[manual]{fireport} %マニュアルの場合
+%\usepackage[presemi]{fireport} %プレゼミ資料の場合
 %\usepackage[report,nosupervisor]{fireport} %レポートの場合
 \lecture{hoge} %レポートの場合，hogeを講義名に変える
 ```
@@ -52,7 +54,8 @@ gaiyo.styに色々書き加えています．
 %\usepackage[master]{fireport} %博士前期課程の場合
 %\usepackage{fireport} %4年次生の場合
 %\usepackage[junior]{fireport} %3年次生の場合
-\usepackage[manual,presemi]{fireport} %マニュアル，プレゼミ資料の場合
+%\usepackage[manual]{fireport} %マニュアルの場合
+\usepackage[presemi]{fireport} %プレゼミ資料の場合
 %\usepackage[report,nosupervisor]{fireport} %レポートの場合
 \lecture{hoge} %レポートの場合，hogeを講義名に変える
 ```
@@ -63,7 +66,8 @@ gaiyo.styに色々書き加えています．
 %\usepackage[master]{fireport} %博士前期課程の場合
 %\usepackage{fireport} %4年次生の場合
 %\usepackage[junior]{fireport} %3年次生の場合
-%\usepackage[manual,presemi]{fireport} %マニュアル，プレゼミ資料の場合
+%\usepackage[manual]{fireport} %マニュアルの場合
+%\usepackage[presemi]{fireport} %プレゼミ資料の場合
 \usepackage[report]{fireport} %レポートの場合
 \lecture{システムプログラミング実習} %レポートの場合，hogeを講義名に変える
 ```
@@ -74,8 +78,8 @@ gaiyo.styに色々書き加えています．
 %\usepackage[master]{fireport} %博士前期課程の場合
 %\usepackage{fireport} %4年次生の場合
 %\usepackage[junior]{fireport} %3年次生の場合
-%\usepackage[manual,presemi]{fireport} %マニュアル，プレゼミ資料の場合
+%\usepackage[manual]{fireport} %マニュアルの場合
+%\usepackage[presemi]{fireport} %プレゼミ資料の場合
 \usepackage[report,nosupervisor]{fireport} %レポートの場合
 \lecture{システムプログラミング実習} %レポートの場合，hogeを講義名に変える
 ```
-
