@@ -1,6 +1,6 @@
 %\makeatletter
 % $Id: gaiyo.sty,v 2.2 2011-11-13 18:34:44+09 kobayasi Exp kobayasi $
-% Copyleft Kazuo Moriwaka 
+% Copyleft Kazuo Moriwaka
 % You can copy this file freely under GPL 2.0.
 %
 % 21 Mar, 2001: Revision Control was started.
@@ -37,7 +37,7 @@
 \ProcessOptions%
 
 % 長さ指定
-\renewcommand{\baselinestretch}{1.05} 
+\renewcommand{\baselinestretch}{1.05}
 \marginparwidth=0cm
 \topmargin=-1cm
 \headheight=0.3cm
@@ -96,16 +96,16 @@
     \advance\Year-1988%
     \ifnum \month < 10%
       \ifnum \month > 3%
-        \gdef\hd@type{平成\number\Year~年9月期\hskip1zw\hdtype}
+        \gdef\hd@type{\number\year~年9月期\hskip1zw\hdtype}
       \fi
     \else
       \ifnum \month < 13%
         \advance\Year+1%
-        \gdef\hd@type{平成\number\Year~年3月期\hskip1zw\hdtype}
+        \gdef\hd@type{\number\year~年3月期\hskip1zw\hdtype}
       \fi
     \fi
     \ifnum \month < 4%
-        \gdef\hd@type{平成\number\Year~年3月期\hskip1zw\hdtype}
+        \gdef\hd@type{\number\year~年3月期\hskip1zw\hdtype}
     \fi
   \else
     \ifTh@senior%
@@ -207,7 +207,7 @@
     {\fontsize{16pt}{0.6565cm}\selectfont \bfseries
       \@title \par%
       \vspace{\baselineskip}%
-      
+
     }%
   \end{center}%
   }
